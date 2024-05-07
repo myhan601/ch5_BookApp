@@ -13,6 +13,8 @@
 		AB47BF2E2BEA352700553CC7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AB47BF2D2BEA352700553CC7 /* Base */; };
 		AB47BF302BEA352800553CC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB47BF2F2BEA352800553CC7 /* Assets.xcassets */; };
 		AB47BF332BEA352800553CC7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AB47BF322BEA352800553CC7 /* Base */; };
+		AB47BF3B2BEA3A6000553CC7 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF3A2BEA3A6000553CC7 /* MainVC.swift */; };
+		AB47BF3D2BEA3FC900553CC7 /* BookListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF3C2BEA3FC900553CC7 /* BookListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		AB47BF2F2BEA352800553CC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB47BF322BEA352800553CC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB47BF342BEA352800553CC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB47BF3A2BEA3A6000553CC7 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		AB47BF3C2BEA3FC900553CC7 /* BookListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +62,10 @@
 			children = (
 				AB47BF262BEA352700553CC7 /* AppDelegate.swift */,
 				AB47BF282BEA352700553CC7 /* SceneDelegate.swift */,
-				AB47BF2A2BEA352700553CC7 /* ViewController.swift */,
+				AB47BF3A2BEA3A6000553CC7 /* MainVC.swift */,
+				AB47BF3C2BEA3FC900553CC7 /* BookListVC.swift */,
 				AB47BF2C2BEA352700553CC7 /* Main.storyboard */,
+				AB47BF2A2BEA352700553CC7 /* ViewController.swift */,
 				AB47BF2F2BEA352800553CC7 /* Assets.xcassets */,
 				AB47BF312BEA352800553CC7 /* LaunchScreen.storyboard */,
 				AB47BF342BEA352800553CC7 /* Info.plist */,
@@ -139,7 +145,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB47BF2B2BEA352700553CC7 /* ViewController.swift in Sources */,
+				AB47BF3B2BEA3A6000553CC7 /* MainVC.swift in Sources */,
 				AB47BF272BEA352700553CC7 /* AppDelegate.swift in Sources */,
+				AB47BF3D2BEA3FC900553CC7 /* BookListVC.swift in Sources */,
 				AB47BF292BEA352700553CC7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
