@@ -21,15 +21,14 @@ class TabBarVC: UITabBarController {
     
     private func addVC() {
         let firstVC = MainVC()
-        firstVC.view.backgroundColor = .systemGreen
         let firstNavVC = UINavigationController(rootViewController: firstVC)
-        firstNavVC.tabBarItem = UITabBarItem(title: "First", image: nil, selectedImage: nil)
+        firstNavVC.tabBarItem = UITabBarItem(title: "검색 탭", image: nil, selectedImage: nil)
         firstNavVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], for: .normal)
         
         let secondVC = BookListVC()
-        secondVC.view.backgroundColor = .systemPurple
+        secondVC.title = "담은 책"
         let secondNavVC = UINavigationController(rootViewController: secondVC)
-        secondNavVC.tabBarItem = UITabBarItem(title: "Second", image: nil, selectedImage: nil)
+        secondNavVC.tabBarItem = UITabBarItem(title: "담은 책", image: nil, selectedImage: nil)
         secondNavVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], for: .normal)
         
         self.viewControllers = [firstNavVC, secondNavVC]

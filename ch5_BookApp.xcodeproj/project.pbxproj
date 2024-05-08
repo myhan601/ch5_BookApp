@@ -16,6 +16,8 @@
 		AB47BF3B2BEA3A6000553CC7 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF3A2BEA3A6000553CC7 /* MainVC.swift */; };
 		AB47BF3D2BEA3FC900553CC7 /* BookListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF3C2BEA3FC900553CC7 /* BookListVC.swift */; };
 		AB47BF3F2BEA570000553CC7 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF3E2BEA570000553CC7 /* TabBarVC.swift */; };
+		AB47BF422BEB84A900553CC7 /* MainVCTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF412BEB84A900553CC7 /* MainVCTableCell.swift */; };
+		AB47BF442BEB855800553CC7 /* MainVCCollectionVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF432BEB855800553CC7 /* MainVCCollectionVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		AB47BF3A2BEA3A6000553CC7 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		AB47BF3C2BEA3FC900553CC7 /* BookListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListVC.swift; sourceTree = "<group>"; };
 		AB47BF3E2BEA570000553CC7 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		AB47BF412BEB84A900553CC7 /* MainVCTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCTableCell.swift; sourceTree = "<group>"; };
+		AB47BF432BEB855800553CC7 /* MainVCCollectionVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCCollectionVCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 		AB47BF252BEA352700553CC7 /* ch5_BookApp */ = {
 			isa = PBXGroup;
 			children = (
+				AB47BF402BEB848400553CC7 /* Cell */,
 				AB47BF262BEA352700553CC7 /* AppDelegate.swift */,
 				AB47BF282BEA352700553CC7 /* SceneDelegate.swift */,
 				AB47BF3A2BEA3A6000553CC7 /* MainVC.swift */,
@@ -74,6 +79,31 @@
 				AB47BF342BEA352800553CC7 /* Info.plist */,
 			);
 			path = ch5_BookApp;
+			sourceTree = "<group>";
+		};
+		AB47BF402BEB848400553CC7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AB47BF462BEBAFAB00553CC7 /* SearchResult */,
+				AB47BF452BEBAF9400553CC7 /* RecentBook */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		AB47BF452BEBAF9400553CC7 /* RecentBook */ = {
+			isa = PBXGroup;
+			children = (
+				AB47BF412BEB84A900553CC7 /* MainVCTableCell.swift */,
+				AB47BF432BEB855800553CC7 /* MainVCCollectionVCell.swift */,
+			);
+			path = RecentBook;
+			sourceTree = "<group>";
+		};
+		AB47BF462BEBAFAB00553CC7 /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SearchResult;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,11 +177,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB47BF422BEB84A900553CC7 /* MainVCTableCell.swift in Sources */,
 				AB47BF2B2BEA352700553CC7 /* ViewController.swift in Sources */,
 				AB47BF3B2BEA3A6000553CC7 /* MainVC.swift in Sources */,
 				AB47BF272BEA352700553CC7 /* AppDelegate.swift in Sources */,
 				AB47BF3D2BEA3FC900553CC7 /* BookListVC.swift in Sources */,
 				AB47BF3F2BEA570000553CC7 /* TabBarVC.swift in Sources */,
+				AB47BF442BEB855800553CC7 /* MainVCCollectionVCell.swift in Sources */,
 				AB47BF292BEA352700553CC7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

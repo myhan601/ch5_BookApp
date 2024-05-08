@@ -12,7 +12,9 @@ class BookListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let label = UILabel(frame: CGRect(x: 50, y: 50, width: 200, height: 50))
+        label.text = "SeconView"
+        view.addSubview(label)
     }
 
 
