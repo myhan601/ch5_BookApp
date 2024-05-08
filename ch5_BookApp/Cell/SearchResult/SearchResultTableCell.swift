@@ -53,7 +53,7 @@ class SearchResultTableCell: UITableViewCell {
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 300, height: 50) // 적절한 사이즈로 조정하세요
+        layout.itemSize = CGSize(width: 300, height: 70) // 적절한 사이즈로 조정하세요
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
