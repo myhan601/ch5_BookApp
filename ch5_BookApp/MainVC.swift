@@ -29,14 +29,14 @@ class MainVC: UIViewController, UISearchBarDelegate {
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        self.tableView = UITableView(frame: CGRect(x: 0, y: 170, width: 390, height: 200))
+        self.tableView = UITableView(frame: CGRect(x: 0, y: 170, width: 390, height: 700))
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.view.addSubview(tableView)
         tableView.isScrollEnabled = false
 
         tableView.register(MainVCTableCell.self, forCellReuseIdentifier: MainVCTableCell.Identifier)
-
+        tableView.register(SearchResultTableCell.self, forCellReuseIdentifier: SearchResultTableCell.Identifier)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -53,23 +53,55 @@ class MainVC: UIViewController, UISearchBarDelegate {
 }
 
 extension MainVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            // 첫 번째 섹션의 셀 구성
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MainVCTableCell.Identifier, for: indexPath) as? MainVCTableCell else {
+                return UITableViewCell()
+            }
+            // 셀에 대한 추가적인 설정
+//            cell.selectionStyle = .none
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableCell.Identifier, for: indexPath) as! SearchResultTableCell
+            // cell의 설정
+            return cell
+
+        default:
+            // 기본 셀 반환
+            return UITableViewCell()
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 셀을 재사용 큐에서 가져오거나 새로 생성
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainVCTableCell.Identifier, for: indexPath) as! MainVCTableCell
-        cell.selectionStyle = .none
-        // 셀에 대한 설정
-//        cell.textLabel?.text = "Row \(indexPath.row)"
-        
-        return cell // 셀 반환
+    // 섹션의 개수를 반환
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
+    
+    // 각 섹션 별 행의 수를 반환
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 1 // 여기서 0보다 큰 값을 반환해야 함
+        default:
+            return 0
+        }
+    }
+
 }
 
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        switch indexPath.row {
+        case 0:
+            return 150
+        case 1:
+            return 400
+        default:
+            return 80
+        }
     }
 }
