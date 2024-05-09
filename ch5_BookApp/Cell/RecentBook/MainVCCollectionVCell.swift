@@ -12,12 +12,12 @@ class MainVCCollectionVCell: UICollectionViewCell {
     static let identifier = "MainVCCollectionVCell"
     
     let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.backgroundColor = .black
-        return iv
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFill
+        img.clipsToBounds = true
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.backgroundColor = .black
+        return img
     }()
     
     override init(frame: CGRect) {

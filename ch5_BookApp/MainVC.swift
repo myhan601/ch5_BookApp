@@ -158,6 +158,5 @@ extension MainVC: SearchResultCellDelegate {
         let detailVC = DetailVC()
         // DetailVC를 모달로 표시
         present(detailVC, animated: true, completion: nil)
-        print("modal")
     }
 }

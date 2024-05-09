@@ -8,7 +8,7 @@
 import UIKit
 
 class DetailVC: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -77,5 +77,42 @@ class DetailVC: UIViewController {
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
+        
+        // x 버튼
+        let closeButton = UIButton()
+        closeButton.setTitle("X", for: .normal)
+        closeButton.setTitleColor(.white, for: .normal)
+        closeButton.backgroundColor = .lightGray
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.layer.cornerRadius = 8
+        closeButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
+        view.addSubview(closeButton)
+        
+        // 담기 버튼
+        let addToCartButton = UIButton()
+        addToCartButton.setTitle("담기", for: .normal)
+        addToCartButton.setTitleColor(.white, for: .normal)
+        addToCartButton.translatesAutoresizingMaskIntoConstraints = false
+        addToCartButton.backgroundColor = .systemGreen
+        addToCartButton.layer.cornerRadius = 8
+        addToCartButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
+        view.addSubview(addToCartButton)
+        
+        // 버튼 제약 조건 설정
+        NSLayoutConstraint.activate([
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            closeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            closeButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            addToCartButton.leadingAnchor.constraint(equalTo: closeButton.trailingAnchor, constant: 10),
+            addToCartButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            addToCartButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            addToCartButton.heightAnchor.constraint(equalToConstant: 50),
+            addToCartButton.widthAnchor.constraint(equalTo: closeButton.widthAnchor, multiplier: 3)
+        ])
+    }
+    @objc func dismissModal() {
+            self.dismiss(animated: true, completion: nil)
     }
 }
+
