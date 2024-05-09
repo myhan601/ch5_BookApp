@@ -14,21 +14,21 @@ class SearchResultCollectionCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return label
     }()
     
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
@@ -52,14 +52,14 @@ class SearchResultCollectionCell: UICollectionViewCell {
             titleLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10), // 상단 여백 보장
             titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -10), // 하단 여백 보장
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: authorLabel.leadingAnchor, constant: -8) // titleLabel과 authorLabel 사이의 간격 조정
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: authorLabel.leadingAnchor, constant: -4) // titleLabel과 authorLabel 사이의 간격 조정
         ])
         
         // authorLabel
         NSLayoutConstraint.activate([
             authorLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             authorLabel.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 8), // titleLabel과의 간격 조정
-            authorLabel.trailingAnchor.constraint(lessThanOrEqualTo: priceLabel.leadingAnchor, constant: -70) // priceLabel과의 간격 조정
+            authorLabel.trailingAnchor.constraint(lessThanOrEqualTo: priceLabel.leadingAnchor, constant: -16) // priceLabel과의 간격 조정
         ])
         
         // priceLabel
@@ -69,10 +69,10 @@ class SearchResultCollectionCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with title: String, author: String, price: String) {
-        titleLabel.text = title
-        authorLabel.text = author
-        priceLabel.text = price
+    func configure(with book: Book) {
+        titleLabel.text = book.title
+        authorLabel.text = book.authors[0]
+        priceLabel.text = String(book.price)
     }
 }
 

@@ -20,6 +20,29 @@ class SearchResultTableCell: UITableViewCell {
     static let Identifier = "SearchResultTableCell"
     var collectionView: UICollectionView!
     
+    var books = [Book]()
+    
+    func configure() {
+        fetchBooks()
+    }
+    
+    func fetchBooks() {
+        BookManager.fetchBooks { [weak self] (books) in
+            DispatchQueue.main.async {
+                if let books = books {
+                    // 최대 10개의 요소만 선택하여 books 배열에 할당
+                    self?.books = books
+                    self?.collectionView.reloadData()
+                } else {
+                    // books가 nil인 경우, 즉 에러가 발생한 경우의 처리
+                    print("도서 정보를 불러오는 데 실패했습니다.")
+                }
+            }
+        }
+    }
+
+
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "검색 결과"
@@ -42,8 +65,6 @@ class SearchResultTableCell: UITableViewCell {
     }
     
     private func setupViews() {
-        //        addSubview(titleLabel)
-        //        addSubview(collectionView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)
     }
@@ -82,23 +103,28 @@ class SearchResultTableCell: UITableViewCell {
 
 extension SearchResultTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return books.count // 실제 books 배열의 개수를 반환하도록 수정
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionCell.identifier, for: indexPath) as! SearchResultCollectionCell
-        let title = "책 제목"
-        let author = "저자"
-        let price = "가격"
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionCell.identifier, for: indexPath) as? SearchResultCollectionCell else {
+            fatalError("Unable to dequeue SearchResultCollectionCell")
+        }
+        
+        // books 배열에서 해당 indexPath에 해당하는 Book 객체를 가져옵니다.
+        let book = books[indexPath.row]
+        
         // configure 메소드를 호출하여 셀의 내용을 설정합니다.
-        cell.configure(with: title, author: author, price: price)
+        cell.configure(with: book)
         
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.gray.cgColor
         cell.layer.cornerRadius = 8.0
         return cell
+        
     }
 }
+
 
 extension SearchResultTableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

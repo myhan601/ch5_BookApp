@@ -12,54 +12,58 @@ class MainVC: UIViewController, UISearchBarDelegate {
     let searchBar = UISearchBar()
     var tableView: UITableView!
     
+    var searchResults = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        // 책 정보를 불러와 로그에 출력
-        BookManager.fetchBooks { books in
-            guard let books = books else {
-                print("책 정보를 불러오는 데 실패했습니다.")
-                return
-            }
-            
-            // 성공적으로 책 정보를 불러온 경우, 각 책의 제목을 로그에 출력
-            for book in books {
-                print("제목: \(book.title), 저자: \(book.authors.joined(separator: ", ")), 가격: \(book.price), 할인 가격: \(book.salePrice)")
-            }
-        }
+        setupViews()
+        setupConstraints()
     }
-
     
-    private func configureUI() {
+    
+    private func setupViews() {
+        // 뷰 배경색 설정
         view.backgroundColor = .systemBackground
-        
+    
         configureSearchBar()
         configureTableView()
     }
     
-    private func configureTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: 170, width: 390, height: 700))
-        tableView.dataSource = self
-        tableView.delegate = self
-        view.addSubview(tableView)
-        
-        tableView.isScrollEnabled = false
-        tableView.register(MainVCTableCell.self, forCellReuseIdentifier: MainVCTableCell.Identifier)
-        tableView.register(SearchResultTableCell.self, forCellReuseIdentifier: SearchResultTableCell.Identifier)
-    }
-    
-    private func configureSearchBar() {
-        searchBar.delegate = self
-        searchBar.placeholder = "검색어를 입력하세요"
-        view.addSubview(searchBar)
-        
+    private func setupConstraints() {
+        // 서치바 오토레이아웃 설정
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.searchBarStyle = .minimal
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        // 테이블뷰 오토레이아웃 설정
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func configureSearchBar() {
+        searchBar.delegate = self
+        searchBar.placeholder = "검색어를 입력하세요"
+        searchBar.searchBarStyle = .minimal
+        view.addSubview(searchBar)
+    }
+    
+    private func configureTableView() {
+        tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.isScrollEnabled = false // 필요에 따라 조정
+        tableView.separatorStyle = .none
+        tableView.register(MainVCTableCell.self, forCellReuseIdentifier: MainVCTableCell.Identifier)
+        tableView.register(SearchResultTableCell.self, forCellReuseIdentifier: SearchResultTableCell.Identifier)
+        view.addSubview(tableView)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -67,9 +71,6 @@ class MainVC: UIViewController, UISearchBarDelegate {
         print("검색어: \(searchText)")
         searchBar.resignFirstResponder()
     }
-    
-    
-    
 }
 
 extension MainVC: UITableViewDataSource {
@@ -87,6 +88,7 @@ extension MainVC: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableCell.Identifier, for: indexPath) as! SearchResultTableCell
             // cell의 설정
             cell.delegate = self
+            cell.configure()
             cell.selectionStyle = .none
             return cell
             

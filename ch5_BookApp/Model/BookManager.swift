@@ -8,6 +8,8 @@
 import Foundation
 
 class BookManager {
+    static let shared = BookManager()
+    
     static func fetchBooks(completion: @escaping ([Book]?) -> Void) {
         let url = URL(string: "https://dapi.kakao.com/v3/search/book?query=세이노")!
         var request = URLRequest(url: url)
