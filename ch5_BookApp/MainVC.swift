@@ -91,10 +91,6 @@ class MainVC: UIViewController, UISearchBarDelegate {
                 
                 // 검색 완료 후 키보드 숨김 처리
                 searchBar.resignFirstResponder()
-                
-                // 디버깅을 위한 콘솔 출력
-                print("검색어: \(searchText)")
-                print(self?.searchResults ?? [])
             }
         }
     }
