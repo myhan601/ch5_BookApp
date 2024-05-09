@@ -87,7 +87,7 @@ extension SearchResultTableCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionCell.identifier, for: indexPath) as! SearchResultCollectionCell
-        let title = "책 제목 \(indexPath.item + 1)"
+        let title = "책 제목"
         let author = "저자"
         let price = "가격"
         // configure 메소드를 호출하여 셀의 내용을 설정합니다.
