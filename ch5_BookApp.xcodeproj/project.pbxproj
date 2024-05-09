@@ -21,6 +21,7 @@
 		AB47BF482BEBAFFC00553CC7 /* SearchResultTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF472BEBAFFC00553CC7 /* SearchResultTableCell.swift */; };
 		AB47BF4A2BEBBDC900553CC7 /* SearchResultCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF492BEBBDC900553CC7 /* SearchResultCollectionCell.swift */; };
 		AB47BF4C2BEBD36D00553CC7 /* SavedBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF4B2BEBD36D00553CC7 /* SavedBookTableViewCell.swift */; };
+		AB47BF4E2BEC846000553CC7 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB47BF4D2BEC846000553CC7 /* DetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		AB47BF472BEBAFFC00553CC7 /* SearchResultTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableCell.swift; sourceTree = "<group>"; };
 		AB47BF492BEBBDC900553CC7 /* SearchResultCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionCell.swift; sourceTree = "<group>"; };
 		AB47BF4B2BEBD36D00553CC7 /* SavedBookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedBookTableViewCell.swift; sourceTree = "<group>"; };
+		AB47BF4D2BEC846000553CC7 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				AB47BF402BEB848400553CC7 /* Cell */,
 				AB47BF3A2BEA3A6000553CC7 /* MainVC.swift */,
 				AB47BF3C2BEA3FC900553CC7 /* BookListVC.swift */,
+				AB47BF4D2BEC846000553CC7 /* DetailVC.swift */,
 				AB47BF3E2BEA570000553CC7 /* TabBarVC.swift */,
 				AB47BF2C2BEA352700553CC7 /* Main.storyboard */,
 				AB47BF2A2BEA352700553CC7 /* ViewController.swift */,
@@ -191,6 +194,7 @@
 				AB47BF482BEBAFFC00553CC7 /* SearchResultTableCell.swift in Sources */,
 				AB47BF3B2BEA3A6000553CC7 /* MainVC.swift in Sources */,
 				AB47BF4A2BEBBDC900553CC7 /* SearchResultCollectionCell.swift in Sources */,
+				AB47BF4E2BEC846000553CC7 /* DetailVC.swift in Sources */,
 				AB47BF272BEA352700553CC7 /* AppDelegate.swift in Sources */,
 				AB47BF3D2BEA3FC900553CC7 /* BookListVC.swift in Sources */,
 				AB47BF3F2BEA570000553CC7 /* TabBarVC.swift in Sources */,

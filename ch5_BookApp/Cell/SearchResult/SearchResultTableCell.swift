@@ -7,7 +7,15 @@
 
 import UIKit
 
+
+protocol SearchResultCellDelegate: AnyObject {
+    func didSelectItemAt(indexPath: IndexPath)
+}
+
+
 class SearchResultTableCell: UITableViewCell {
+    
+    weak var delegate: SearchResultCellDelegate?
     
     static let Identifier = "SearchResultTableCell"
     var collectionView: UICollectionView!
@@ -34,8 +42,8 @@ class SearchResultTableCell: UITableViewCell {
     }
     
     private func setupViews() {
-//        addSubview(titleLabel)
-//        addSubview(collectionView)
+        //        addSubview(titleLabel)
+        //        addSubview(collectionView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)
     }
@@ -64,8 +72,8 @@ class SearchResultTableCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isScrollEnabled = true
-//        contentView.backgroundColor = .clear
-//        collectionView.backgroundColor = .clear
+        //        contentView.backgroundColor = .clear
+        //        collectionView.backgroundColor = .clear
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -95,9 +103,10 @@ extension SearchResultTableCell: UICollectionViewDataSource {
 
 extension SearchResultTableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            // 여기서 indexPath.row를 사용하여 클릭된 셀의 데이터를 참조할 수 있습니다.
-            print("셀 \(indexPath.row)이(가) 클릭되었습니다.")
-            
-            // 예: 상세 페이지로 이동하는 코드나, 다른 액션을 수행하는 코드를 여기에 추가할 수 있습니다.
-        }
+        delegate?.didSelectItemAt(indexPath: indexPath)
+        // 여기서 indexPath.row를 사용하여 클릭된 셀의 데이터를 참조할 수 있습니다.
+        print("셀 \(indexPath.row)이(가) 클릭되었습니다.")
+        
+        // 예: 상세 페이지로 이동하는 코드나, 다른 액션을 수행하는 코드를 여기에 추가할 수 있습니다.
+    }
 }
