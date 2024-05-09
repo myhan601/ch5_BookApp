@@ -15,7 +15,8 @@ class MainVC: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
-        
+        // 함수 호출
+        fetchBooks()
         // 서치바 기본 설정
         searchBar.delegate = self
         searchBar.placeholder = "검색어를 입력하세요"
@@ -34,6 +35,7 @@ class MainVC: UIViewController, UISearchBarDelegate {
         self.tableView.delegate = self
         self.view.addSubview(tableView)
         tableView.isScrollEnabled = false
+        tableView.separatorStyle = .none
         
         tableView.register(MainVCTableCell.self, forCellReuseIdentifier: MainVCTableCell.Identifier)
         tableView.register(SearchResultTableCell.self, forCellReuseIdentifier: SearchResultTableCell.Identifier)
