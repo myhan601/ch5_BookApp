@@ -19,21 +19,7 @@ class MainVC: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
-//        fetchBooks()
     }
-    
-//    func fetchBooks() {
-//        BookManager.fetchBooks { [weak self] (books) in
-//            DispatchQueue.main.async {
-//                if let books = books {
-//                    self?.books = books
-//                    self?.tableView.reloadData()
-//                } else {
-//                    print("도서 정보를 불러오는 데 실패했습니다.")
-//                }
-//            }
-//        }
-//    }
     
     private func setupViews() {
         view.backgroundColor = .systemBackground
@@ -132,7 +118,7 @@ extension MainVC: UITableViewDataSource {
         case 0:
             return 1
         case 1:
-            return 1 // 여기서 0보다 큰 값을 반환해야 함
+            return 1
         default:
             return 0
         }
@@ -153,9 +139,9 @@ extension MainVC: UITableViewDelegate {
 }
 
 extension MainVC: SearchResultCellDelegate {
-    func didSelectItemAt(indexPath: IndexPath) {
-        // DetailVC 인스턴스 생성
+    func didSelectItemAt(in cell: SearchResultTableCell, with book: Book?) {
         let detailVC = DetailVC()
+        detailVC.book = book
         // DetailVC를 모달로 표시
         present(detailVC, animated: true, completion: nil)
     }

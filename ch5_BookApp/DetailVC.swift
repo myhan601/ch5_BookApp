@@ -9,13 +9,15 @@ import UIKit
 
 class DetailVC: UIViewController {
     
+    var book: Book?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         // 책 제목 레이블
         let titleLabel = UILabel()
-        titleLabel.text = "책 제목"
+        titleLabel.text = book?.title ?? "책 제목"
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -23,7 +25,7 @@ class DetailVC: UIViewController {
         
         // 저자 레이블
         let authorLabel = UILabel()
-        authorLabel.text = "저자"
+        authorLabel.text = book?.authors[0] ?? "저자"
         authorLabel.textAlignment = .center
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(authorLabel)
@@ -34,16 +36,29 @@ class DetailVC: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         
+        if let thumbnailUrlString = book?.thumbnail, let thumbnailUrl = URL(string: thumbnailUrlString) {
+            URLSession.shared.dataTask(with: thumbnailUrl) { data, response, error in
+                guard let data = data, error == nil else { return }
+                DispatchQueue.main.async { // 메인 스레드에서 UI 업데이트
+                    imageView.image = UIImage(data: data)
+                }
+            }.resume()
+        }
+        
         // 가격 레이블
         let priceLabel = UILabel()
-        priceLabel.text = "가격"
+        if let price = book?.price {
+            priceLabel.text = "\(price)원"
+        } else {
+            priceLabel.text = "가격"
+        }
         priceLabel.textAlignment = .center
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(priceLabel)
         
         // 상세 설명 레이블
         let descriptionLabel = UILabel()
-        descriptionLabel.text = "상세 설명"
+        descriptionLabel.text = book?.contents ?? "상세 설명"
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0 // 여러 줄 표시 가능
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false

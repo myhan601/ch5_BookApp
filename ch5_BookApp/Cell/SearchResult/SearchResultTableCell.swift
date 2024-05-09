@@ -7,9 +7,9 @@
 
 import UIKit
 
-
 protocol SearchResultCellDelegate: AnyObject {
-    func didSelectItemAt(indexPath: IndexPath)
+//    func didSelectItemAt(indexPath: IndexPath)
+    func didSelectItemAt(in cell: SearchResultTableCell, with book: Book?)
 }
 
 
@@ -20,6 +20,7 @@ class SearchResultTableCell: UITableViewCell {
     static let Identifier = "SearchResultTableCell"
     var collectionView: UICollectionView!
     
+    var book: Book?
     var books = [Book]()
     
     func configureWithBooks(_ books: [Book]) {
@@ -103,8 +104,8 @@ extension SearchResultTableCell: UICollectionViewDataSource {
 
 extension SearchResultTableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelectItemAt(indexPath: indexPath)
-        // 여기서 indexPath.row를 사용하여 클릭된 셀의 데이터를 참조할 수 있습니다.
-        print("셀 \(indexPath.row)이(가) 클릭되었습니다.")
+        let selectedBook = books[indexPath.row] // 수정된 부분
+        delegate?.didSelectItemAt(in: self, with: selectedBook) // 수정된 부분
     }
 }
+
