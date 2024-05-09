@@ -12,19 +12,35 @@ class MainVC: UIViewController, UISearchBarDelegate {
     let searchBar = UISearchBar()
     var tableView: UITableView!
     
-    var searchResults = [String]()
+    var books: [Book] = []
+    var searchResults: [Book] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
+        fetchBooks()
     }
     
+    func fetchBooks() {
+        BookManager.fetchBooks { [weak self] (books) in
+            DispatchQueue.main.async {
+                if let books = books {
+                    // 최대 10개의 요소만 선택하여 books 배열에 할당
+                    self?.books = books
+                    self?.tableView.reloadData()
+                } else {
+                    // books가 nil인 경우, 즉 에러가 발생한 경우의 처리
+                    print("도서 정보를 불러오는 데 실패했습니다.")
+                }
+            }
+        }
+    }
     
     private func setupViews() {
         // 뷰 배경색 설정
         view.backgroundColor = .systemBackground
-    
+        
         configureSearchBar()
         configureTableView()
     }
@@ -67,9 +83,15 @@ class MainVC: UIViewController, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchText = searchBar.text else { return }
-        print("검색어: \(searchText)")
+        guard let searchText = searchBar.text, !searchText.isEmpty else { return }
+        
+        // 소문자로 변환하여 검색어와 일치하는 책들만 필터링
+        searchResults = books.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+        
+        tableView.reloadData()
         searchBar.resignFirstResponder()
+        print("검색어: \(searchText)")
+        print(searchResults)
     }
 }
 
