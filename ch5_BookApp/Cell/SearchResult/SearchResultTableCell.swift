@@ -24,7 +24,6 @@ class SearchResultTableCell: UITableViewCell {
     
     func configureWithBooks(_ books: [Book]) {
         self.books = books
-        // UICollectionView를 새로고침하여 데이터를 표시합니다.
         self.collectionView.reloadData()
     }
     
@@ -36,13 +35,11 @@ class SearchResultTableCell: UITableViewCell {
         return label
     }()
     
-    // 이 부분을 추가합니다.
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCollectionView()
         setupViews()
         setupConstraints()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,21 +92,14 @@ extension SearchResultTableCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionCell.identifier, for: indexPath) as? SearchResultCollectionCell else {
             fatalError("Unable to dequeue SearchResultCollectionCell")
         }
-        
-        // books 배열에서 해당 indexPath에 해당하는 Book 객체를 가져옵니다.
         let book = books[indexPath.row]
-        
-        // configure 메소드를 호출하여 셀의 내용을 설정합니다.
         cell.configure(with: book)
-        
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.gray.cgColor
         cell.layer.cornerRadius = 8.0
         return cell
-        
     }
 }
-
 
 extension SearchResultTableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

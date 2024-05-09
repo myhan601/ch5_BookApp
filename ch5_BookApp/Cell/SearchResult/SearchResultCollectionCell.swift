@@ -71,8 +71,10 @@ class SearchResultCollectionCell: UICollectionViewCell {
     
     func configure(with book: Book) {
         titleLabel.text = book.title
-        authorLabel.text = book.authors[0]
+        // 저자 정보가 있다면 첫 번째 저자를 사용, 없다면 "저자 미상" 등의 대체 텍스트 사용
+        authorLabel.text = book.authors.first ?? "저자 미상"
         priceLabel.text = String(book.price)
     }
+
 }
 

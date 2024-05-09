@@ -19,26 +19,23 @@ class MainVC: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
-        fetchBooks()
+//        fetchBooks()
     }
     
-    func fetchBooks() {
-        BookManager.fetchBooks { [weak self] (books) in
-            DispatchQueue.main.async {
-                if let books = books {
-                    // 최대 10개의 요소만 선택하여 books 배열에 할당
-                    self?.books = books
-                    self?.tableView.reloadData()
-                } else {
-                    // books가 nil인 경우, 즉 에러가 발생한 경우의 처리
-                    print("도서 정보를 불러오는 데 실패했습니다.")
-                }
-            }
-        }
-    }
+//    func fetchBooks() {
+//        BookManager.fetchBooks { [weak self] (books) in
+//            DispatchQueue.main.async {
+//                if let books = books {
+//                    self?.books = books
+//                    self?.tableView.reloadData()
+//                } else {
+//                    print("도서 정보를 불러오는 데 실패했습니다.")
+//                }
+//            }
+//        }
+//    }
     
     private func setupViews() {
-        // 뷰 배경색 설정
         view.backgroundColor = .systemBackground
         
         configureSearchBar()
@@ -85,14 +82,23 @@ class MainVC: UIViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
         
-        // 소문자로 변환하여 검색어와 일치하는 책들만 필터링
-        searchResults = books.filter { $0.title.lowercased().contains(searchText.lowercased()) }
-        
-        tableView.reloadData()
-        searchBar.resignFirstResponder()
-        print("검색어: \(searchText)")
-        print(searchResults)
+        // BookManager의 fetchBooks 메서드를 사용하여 온라인에서 책 정보 검색
+        BookManager.fetchBooks(query: searchText) { [weak self] books in
+            DispatchQueue.main.async {
+                // 온라인 검색 결과를 searchResults에 할당하고 테이블 뷰 리로드
+                self?.searchResults = books ?? []
+                self?.tableView.reloadData()
+                
+                // 검색 완료 후 키보드 숨김 처리
+                searchBar.resignFirstResponder()
+                
+                // 디버깅을 위한 콘솔 출력
+                print("검색어: \(searchText)")
+                print(self?.searchResults ?? [])
+            }
+        }
     }
+
 }
 
 extension MainVC: UITableViewDataSource {
