@@ -34,8 +34,10 @@ class SearchResultTableCell: UITableViewCell {
     }
     
     private func setupViews() {
-        addSubview(titleLabel)
-        addSubview(collectionView)
+//        addSubview(titleLabel)
+//        addSubview(collectionView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(collectionView)
     }
     
     private func setupConstraints() {
@@ -62,7 +64,8 @@ class SearchResultTableCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isScrollEnabled = true
-        
+//        contentView.backgroundColor = .clear
+//        collectionView.backgroundColor = .clear
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -72,7 +75,7 @@ class SearchResultTableCell: UITableViewCell {
 
 extension SearchResultTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -29,7 +29,7 @@ class MainVC: UIViewController, UISearchBarDelegate {
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        self.tableView = UITableView(frame: CGRect(x: 0, y: 170, width: 390, height: 700))
+        self.tableView = UITableView(frame: CGRect(x: 0, y: 170, width: 390, height: 500))
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.view.addSubview(tableView)
@@ -66,6 +66,7 @@ extension MainVC: UITableViewDataSource {
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableCell.Identifier, for: indexPath) as! SearchResultTableCell
             // cell의 설정
+            cell.selectionStyle = .none
             return cell
 
         default:
@@ -76,7 +77,7 @@ extension MainVC: UITableViewDataSource {
     
     // 섹션의 개수를 반환
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     // 각 섹션 별 행의 수를 반환
@@ -95,7 +96,7 @@ extension MainVC: UITableViewDataSource {
 
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             return 150
         case 1:

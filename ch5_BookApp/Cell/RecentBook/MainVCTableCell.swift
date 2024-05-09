@@ -46,6 +46,7 @@ class MainVCTableCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isScrollEnabled = true
+//        contentView.backgroundColor = .white
     }
     
     func setupViews() {
