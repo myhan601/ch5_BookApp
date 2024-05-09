@@ -75,7 +75,7 @@ class MainVC: UIViewController, UISearchBarDelegate {
         tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.isScrollEnabled = false // 필요에 따라 조정
+        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.register(MainVCTableCell.self, forCellReuseIdentifier: MainVCTableCell.Identifier)
         tableView.register(SearchResultTableCell.self, forCellReuseIdentifier: SearchResultTableCell.Identifier)
@@ -110,10 +110,9 @@ extension MainVC: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableCell.Identifier, for: indexPath) as! SearchResultTableCell
             // cell의 설정
             cell.delegate = self
-            cell.configure()
+            cell.configureWithBooks(searchResults)
             cell.selectionStyle = .none
             return cell
-            
         default:
             // 기본 셀 반환
             return UITableViewCell()
@@ -136,7 +135,6 @@ extension MainVC: UITableViewDataSource {
             return 0
         }
     }
-    
 }
 
 extension MainVC: UITableViewDelegate {

@@ -22,26 +22,11 @@ class SearchResultTableCell: UITableViewCell {
     
     var books = [Book]()
     
-    func configure() {
-        fetchBooks()
+    func configureWithBooks(_ books: [Book]) {
+        self.books = books
+        // UICollectionView를 새로고침하여 데이터를 표시합니다.
+        self.collectionView.reloadData()
     }
-    
-    func fetchBooks() {
-        BookManager.fetchBooks { [weak self] (books) in
-            DispatchQueue.main.async {
-                if let books = books {
-                    // 최대 10개의 요소만 선택하여 books 배열에 할당
-                    self?.books = books
-                    self?.collectionView.reloadData()
-                } else {
-                    // books가 nil인 경우, 즉 에러가 발생한 경우의 처리
-                    print("도서 정보를 불러오는 데 실패했습니다.")
-                }
-            }
-        }
-    }
-
-
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -131,7 +116,5 @@ extension SearchResultTableCell: UICollectionViewDelegate {
         delegate?.didSelectItemAt(indexPath: indexPath)
         // 여기서 indexPath.row를 사용하여 클릭된 셀의 데이터를 참조할 수 있습니다.
         print("셀 \(indexPath.row)이(가) 클릭되었습니다.")
-        
-        // 예: 상세 페이지로 이동하는 코드나, 다른 액션을 수행하는 코드를 여기에 추가할 수 있습니다.
     }
 }
