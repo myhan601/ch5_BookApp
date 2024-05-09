@@ -12,44 +12,93 @@ class MainVC: UIViewController, UISearchBarDelegate {
     let searchBar = UISearchBar()
     var tableView: UITableView!
     
+    var books: [Book] = []
+    var searchResults: [Book] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        setupViews()
+        setupConstraints()
+//        fetchBooks()
+    }
+    
+//    func fetchBooks() {
+//        BookManager.fetchBooks { [weak self] (books) in
+//            DispatchQueue.main.async {
+//                if let books = books {
+//                    self?.books = books
+//                    self?.tableView.reloadData()
+//                } else {
+//                    print("도서 정보를 불러오는 데 실패했습니다.")
+//                }
+//            }
+//        }
+//    }
+    
+    private func setupViews() {
+        view.backgroundColor = .systemBackground
         
-        // 서치바 기본 설정
-        searchBar.delegate = self
-        searchBar.placeholder = "검색어를 입력하세요"
-        self.view.addSubview(searchBar)
-        // 오토레이아웃 설정 (예제에서는 프레임을 직접 설정)
+        configureSearchBar()
+        configureTableView()
+    }
+    
+    private func setupConstraints() {
+        // 서치바 오토레이아웃 설정
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.searchBarStyle = .minimal
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        self.tableView = UITableView(frame: CGRect(x: 0, y: 170, width: 390, height: 700))
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.view.addSubview(tableView)
+        // 테이블뷰 오토레이아웃 설정
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func configureSearchBar() {
+        searchBar.delegate = self
+        searchBar.placeholder = "검색어를 입력하세요"
+        searchBar.searchBarStyle = .minimal
+        view.addSubview(searchBar)
+    }
+    
+    private func configureTableView() {
+        tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.isScrollEnabled = false
-        
+        tableView.separatorStyle = .none
         tableView.register(MainVCTableCell.self, forCellReuseIdentifier: MainVCTableCell.Identifier)
         tableView.register(SearchResultTableCell.self, forCellReuseIdentifier: SearchResultTableCell.Identifier)
+        view.addSubview(tableView)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // 사용자가 검색 버튼을 눌렀을 때 호출됩니다.
-        // 검색어 처리 로직을 구현합니다.
-        guard let searchText = searchBar.text else { return }
-        print("검색어: \(searchText)")
+        guard let searchText = searchBar.text, !searchText.isEmpty else { return }
         
-        // 키보드 숨기기
-        searchBar.resignFirstResponder()
+        // BookManager의 fetchBooks 메서드를 사용하여 온라인에서 책 정보 검색
+        BookManager.fetchBooks(query: searchText) { [weak self] books in
+            DispatchQueue.main.async {
+                // 온라인 검색 결과를 searchResults에 할당하고 테이블 뷰 리로드
+                self?.searchResults = books ?? []
+                self?.tableView.reloadData()
+                
+                // 검색 완료 후 키보드 숨김 처리
+                searchBar.resignFirstResponder()
+                
+                // 디버깅을 위한 콘솔 출력
+                print("검색어: \(searchText)")
+                print(self?.searchResults ?? [])
+            }
+        }
     }
-    
-    
+
 }
 
 extension MainVC: UITableViewDataSource {
@@ -67,9 +116,9 @@ extension MainVC: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableCell.Identifier, for: indexPath) as! SearchResultTableCell
             // cell의 설정
             cell.delegate = self
+            cell.configureWithBooks(searchResults)
             cell.selectionStyle = .none
             return cell
-            
         default:
             // 기본 셀 반환
             return UITableViewCell()
@@ -92,7 +141,6 @@ extension MainVC: UITableViewDataSource {
             return 0
         }
     }
-    
 }
 
 extension MainVC: UITableViewDelegate {
