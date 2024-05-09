@@ -12,29 +12,70 @@ class DetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        // 레이블 인스턴스 생성
-        let modalLabel = UILabel()
         
-        // 레이블에 텍스트 설정
-        modalLabel.text = "모달뷰입니다"
+        // 책 제목 레이블
+        let titleLabel = UILabel()
+        titleLabel.text = "책 제목"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
         
-        // 레이블의 텍스트 정렬 설정
-        modalLabel.textAlignment = .center
+        // 저자 레이블
+        let authorLabel = UILabel()
+        authorLabel.text = "저자"
+        authorLabel.textAlignment = .center
+        authorLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(authorLabel)
         
-        // 레이블의 배경색 설정 (옵션)
-        modalLabel.backgroundColor = .lightGray // 배경색은 선택사항입니다.
+        // 이미지 뷰 (테스트용으로 배경색 회색)
+        let imageView = UIImageView()
+        imageView.backgroundColor = .lightGray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
         
-        // 오토레이아웃을 사용하기 위해 false로 설정
-        modalLabel.translatesAutoresizingMaskIntoConstraints = false
+        // 가격 레이블
+        let priceLabel = UILabel()
+        priceLabel.text = "가격"
+        priceLabel.textAlignment = .center
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(priceLabel)
         
-        // 레이블을 뷰의 서브뷰로 추가
-        view.addSubview(modalLabel)
+        // 상세 설명 레이블
+        let descriptionLabel = UILabel()
+        descriptionLabel.text = "상세 설명"
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.numberOfLines = 0 // 여러 줄 표시 가능
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(descriptionLabel)
         
-        // 레이블의 중앙 위치를 부모 뷰의 중앙과 일치시키기 위한 제약 조건 설정
+        // 제약 조건 설정
         NSLayoutConstraint.activate([
-            modalLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            modalLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            // 책 제목 레이블
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            // 저자 레이블
+            authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            // 이미지 뷰
+            imageView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 10),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            imageView.heightAnchor.constraint(equalToConstant: 200), // 예시로 높이 200 설정
+            
+            // 가격 레이블
+            priceLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            priceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            // 상세 설명 레이블
+            descriptionLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 16),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
 }
-

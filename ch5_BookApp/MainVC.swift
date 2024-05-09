@@ -29,12 +29,12 @@ class MainVC: UIViewController, UISearchBarDelegate {
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        self.tableView = UITableView(frame: CGRect(x: 0, y: 170, width: 390, height: 500))
+        self.tableView = UITableView(frame: CGRect(x: 0, y: 170, width: 390, height: 700))
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.view.addSubview(tableView)
         tableView.isScrollEnabled = false
-
+        
         tableView.register(MainVCTableCell.self, forCellReuseIdentifier: MainVCTableCell.Identifier)
         tableView.register(SearchResultTableCell.self, forCellReuseIdentifier: SearchResultTableCell.Identifier)
     }
@@ -61,7 +61,7 @@ extension MainVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             // 셀에 대한 추가적인 설정
-//            cell.selectionStyle = .none
+            cell.selectionStyle = .none
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableCell.Identifier, for: indexPath) as! SearchResultTableCell
@@ -69,7 +69,7 @@ extension MainVC: UITableViewDataSource {
             cell.delegate = self
             cell.selectionStyle = .none
             return cell
-
+            
         default:
             // 기본 셀 반환
             return UITableViewCell()
@@ -92,7 +92,7 @@ extension MainVC: UITableViewDataSource {
             return 0
         }
     }
-
+    
 }
 
 extension MainVC: UITableViewDelegate {
@@ -101,24 +101,19 @@ extension MainVC: UITableViewDelegate {
         case 0:
             return 150
         case 1:
-            return 400
+            return 500
         default:
             return 80
         }
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            // 여기서 indexPath를 사용하여 셀의 데이터를 참조하고,
-            // 적절한 액션(예: DetailVC 모달 표시)을 수행합니다.
-            didSelectItemAt(indexPath: indexPath)
-        }
 }
 
 extension MainVC: SearchResultCellDelegate {
     func didSelectItemAt(indexPath: IndexPath) {
-            // DetailVC 인스턴스 생성
-            let detailVC = DetailVC()
-            
-            // DetailVC를 모달로 표시
-            present(detailVC, animated: true, completion: nil)
-        }
+        // DetailVC 인스턴스 생성
+        let detailVC = DetailVC()
+        // DetailVC를 모달로 표시
+        present(detailVC, animated: true, completion: nil)
+        print("modal")
+    }
 }

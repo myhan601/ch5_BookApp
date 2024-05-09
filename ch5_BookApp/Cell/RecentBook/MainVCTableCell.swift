@@ -50,8 +50,8 @@ class MainVCTableCell: UITableViewCell {
     }
     
     func setupViews() {
-        addSubview(collectionView)
-        addSubview(titleLabel)
+        contentView.addSubview(collectionView)
+        contentView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),

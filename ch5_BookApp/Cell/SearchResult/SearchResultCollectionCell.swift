@@ -48,21 +48,24 @@ class SearchResultCollectionCell: UICollectionViewCell {
         
         // titleLabel
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor), // 셀의 중앙에 맞춤
+            titleLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10), // 상단 여백 보장
+            titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -10), // 하단 여백 보장
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: authorLabel.leadingAnchor, constant: -8) // titleLabel과 authorLabel 사이의 간격 조정
         ])
         
         // authorLabel
         NSLayoutConstraint.activate([
             authorLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            authorLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8)
+            authorLabel.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 8), // titleLabel과의 간격 조정
+            authorLabel.trailingAnchor.constraint(lessThanOrEqualTo: priceLabel.leadingAnchor, constant: -70) // priceLabel과의 간격 조정
         ])
         
         // priceLabel
         NSLayoutConstraint.activate([
             priceLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            priceLabel.leadingAnchor.constraint(equalTo: authorLabel.trailingAnchor, constant: 8),
-            priceLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -10)
+            priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
     
