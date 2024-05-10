@@ -8,34 +8,25 @@
 import UIKit
 
 class BookListVC: UIViewController {
-    
-    // 테이블 뷰 인스턴스 생성
+    var books: [Book] = []
     var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 전체 삭제 버튼 설정
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "전체 삭제", style: .plain, target: self, action: #selector(deleteAllTapped))
         
-        // 추가 버튼 설정
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         
-        // 테이블 뷰 설정 시작
         tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        
-        // 오토레이아웃 사용 설정
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // 테스트를 위한 배경색 회색으로 설정
-        tableView.backgroundColor = .gray
-        
-        // 테이블 뷰를 뷰의 서브뷰로 추가
         view.addSubview(tableView)
         
-        // 테이블 뷰 오토레이아웃 설정
+        // SavedBookTableViewCell의 식별자 등록
+        tableView.register(SavedBookTableViewCell.self, forCellReuseIdentifier: SavedBookTableViewCell.identifier)
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
@@ -45,33 +36,40 @@ class BookListVC: UIViewController {
     }
     
     @objc func deleteAllTapped() {
-        // 전체 삭제 버튼이 클릭되었을 때 실행할 코드
         print("전체 삭제 버튼이 클릭되었습니다.")
     }
     
     @objc func addTapped() {
-        // 추가 버튼이 클릭되었을 때 실행할 코드
         print("추가 버튼이 클릭되었습니다.")
     }
-    
-    // UITableViewDelegate 프로토콜 메소드 필요시 구현
 }
 
 extension BookListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 테스트를 위해 임의의 숫자 반환
-        return 10
+        // 예시 데이터의 개수를 반환
+        return books.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 셀 생성 또는 재사용
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: "cell")
-        // 테스트를 위해 임시 텍스트 설정
-        cell.textLabel?.text = "Row \(indexPath.row)"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedBookTableViewCell.identifier, for: indexPath) as? SavedBookTableViewCell else {
+            fatalError("셀을 생성할 수 없습니다.")
+        }
+        
+        let book = books[indexPath.row]
+        cell.configure(with: book.title, price: "\(book.price)원")
         return cell
     }
 }
 
 extension BookListVC: UITableViewDelegate {
     
+}
+
+extension BookListVC: DetailVCDelegate {
+    func didAddToCart(book: Book) {
+        // 새 책을 books 배열에 추가
+        self.books.append(book)
+        // 테이블 뷰를 다시 로드하여 변경 사항을 반영
+        self.tableView.reloadData()
+    }
 }

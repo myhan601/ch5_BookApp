@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol DetailVCDelegate: AnyObject {
+    func didAddToCart(book: Book)
+}
+
 class DetailVC: UIViewController {
-    
+    weak var delegate: DetailVCDelegate?
     var book: Book?
+    
+    var onAddToCart: ((Book) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +97,7 @@ class DetailVC: UIViewController {
             descriptionLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 16),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 200),
         ])
         
         // x 버튼
@@ -110,7 +117,7 @@ class DetailVC: UIViewController {
         addToCartButton.translatesAutoresizingMaskIntoConstraints = false
         addToCartButton.backgroundColor = .systemGreen
         addToCartButton.layer.cornerRadius = 8
-        addToCartButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
+        addToCartButton.addTarget(self, action: #selector(addCart), for: .touchUpInside)
         view.addSubview(addToCartButton)
         
         // 버튼 제약 조건 설정
@@ -127,7 +134,14 @@ class DetailVC: UIViewController {
         ])
     }
     @objc func dismissModal() {
-            self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func addCart() {
+        if let book = book {
+            onAddToCart?(book)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

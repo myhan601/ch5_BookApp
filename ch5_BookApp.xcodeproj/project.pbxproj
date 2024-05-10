@@ -100,7 +100,7 @@
 			children = (
 				AB47BF462BEBAFAB00553CC7 /* SearchResult */,
 				AB47BF452BEBAF9400553CC7 /* RecentBook */,
-				AB47BF4B2BEBD36D00553CC7 /* SavedBookTableViewCell.swift */,
+				AB47BF542BED262B00553CC7 /* SavedBook */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -130,6 +130,14 @@
 				AB47BF522BECC5A200553CC7 /* BookManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		AB47BF542BED262B00553CC7 /* SavedBook */ = {
+			isa = PBXGroup;
+			children = (
+				AB47BF4B2BEBD36D00553CC7 /* SavedBookTableViewCell.swift */,
+			);
+			path = SavedBook;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

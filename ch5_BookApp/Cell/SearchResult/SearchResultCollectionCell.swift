@@ -48,6 +48,7 @@ class SearchResultCollectionCell: UICollectionViewCell {
         
         // titleLabel
         NSLayoutConstraint.activate([
+            titleLabel.widthAnchor.constraint(equalToConstant: 120),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor), // 셀의 중앙에 맞춤
             titleLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10), // 상단 여백 보장
             titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -10), // 하단 여백 보장

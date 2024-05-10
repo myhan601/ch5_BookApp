@@ -80,7 +80,6 @@ class MainVC: UIViewController, UISearchBarDelegate {
             }
         }
     }
-
 }
 
 extension MainVC: UITableViewDataSource {
@@ -131,7 +130,7 @@ extension MainVC: UITableViewDelegate {
         case 0:
             return 150
         case 1:
-            return 500
+            return 475
         default:
             return 80
         }
